@@ -254,7 +254,7 @@
 
     <div class="scenario-card reveal">
 
-      <div class="scenario-tag">Illustrative example — not a real client</div>
+      
 
       <div class="scenario-intro">
         <h3>A busy hair &amp; beauty salon in Munster</h3>
@@ -382,6 +382,7 @@
     window.CRISP_WEBSITE_ID="db3f6d80-dc46-4cf2-9e59-24aa71486f26";
     window.$crisp.push(["config", "container:index", [1]]);
     window.$crisp.push(["config", "position:reverse", [false]]);
+    window.$crisp.push(["config", "hide:vacation", [false]]);
     (function(){
       var d=document;
       var s=d.createElement("script");
@@ -390,6 +391,11 @@
       d.getElementsByTagName("head")[0].appendChild(s);
     })();
   </script>
+  <style>
+    /* Force Crisp to stay as floating widget, hide expand button */
+    .crisp-client .cc-tlyw[data-full-view="true"] { display: none !important; }
+    .crisp-client a[data-id="open-expand"] { display: none !important; }
+  </style>
 
 <script src="script.js"></script>
 </body>
