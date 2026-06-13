@@ -295,7 +295,7 @@
             <div class="s-stat"><span class="s-n">24/7</span><span class="s-l">system never<br>sleeps</span></div>
             <div class="s-stat"><span class="s-n">+8</span><span class="s-l">extra bookings<br>in month 1</span></div>
           </div>
-          <p class="scenario-note">We will map this out together on the free discovery call.</p>
+          <p class="scenario-note">Numbers are our typical result. Your exact figures depend on current enquiry volume — we map this out together on the free discovery call.</p>
         </div>
 
       </div>
@@ -395,6 +395,14 @@
     /* Force Crisp to stay as floating widget, hide expand button */
     .crisp-client .cc-tlyw[data-full-view="true"] { display: none !important; }
     .crisp-client a[data-id="open-expand"] { display: none !important; }
+    /* Fix chat widget width */
+    .crisp-client .cc-tlyw { width: 380px !important; max-width: 380px !important; }
+    .crisp-client .cc-kxkl { width: 380px !important; max-width: 380px !important; }
+    .crisp-client iframe { width: 380px !important; max-width: 380px !important; }
+    @media (max-width: 480px) {
+      .crisp-client .cc-tlyw { width: 100vw !important; max-width: 100vw !important; }
+      .crisp-client .cc-kxkl { width: 100vw !important; max-width: 100vw !important; }
+    }
   </style>
 
 <script src="script.js"></script>
