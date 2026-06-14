@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>3F Digitals — AI Advisory Board &amp; Team</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#100E0B;--ink2:#1B1813;--ink3:#2A2620;
+  --gold:#E0A43B;--cream:#F8F2E7;--cream2:rgba(248,242,231,0.58);
+}
+body{font-family:"Hanken Grotesk",system-ui,sans-serif;background:var(--ink);color:var(--cream);min-height:100vh;-webkit-font-smoothing:antialiased}
+.nav{background:rgba(16,14,11,0.88);border-bottom:1px solid var(--ink3);padding:0 24px;position:sticky;top:0;z-index:10;backdrop-filter:blur(14px)}
+.nav-in{max-width:1100px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:"Fraunces",serif;font-size:1.3rem;font-weight:600}
+.logo b{color:var(--gold)}
+.nav-badge{font-size:0.75rem;background:rgba(224,164,59,0.15);color:var(--gold);border:1px solid rgba(224,164,59,0.3);padding:4px 10px;border-radius:100px}
+.hero{max-width:1100px;margin:0 auto;padding:48px 24px 36px}
+.eyebrow{font-size:0.72rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);font-weight:500;display:block;margin-bottom:12px}
+.hero h1{font-family:"Fraunces",serif;font-size:clamp(2rem,4vw,2.8rem);font-weight:600;margin-bottom:14px;line-height:1.1}
+.hero p{font-size:1.05rem;color:var(--cream2);max-width:52ch;line-height:1.68}
+.grid{max-width:1100px;margin:0 auto;padding:8px 24px 32px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.card{background:var(--ink2);border:1px solid var(--ink3);border-radius:16px;padding:22px 20px;cursor:pointer;transition:transform 0.22s,border-color 0.22s,box-shadow 0.22s;position:relative;overflow:hidden}
+.card::after{content:"";position:absolute;inset:0;opacity:0;transition:opacity 0.22s;background:radial-gradient(circle at 50% 0%,var(--c,transparent) 0%,transparent 70%)}
+.card:hover{transform:translateY(-3px)}
+.card:hover::after{opacity:0.06}
+.card.active{transform:translateY(-3px)}
+.card-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-bottom:14px}
+.card-dot{position:absolute;top:18px;right:18px;width:8px;height:8px;border-radius:50%;box-shadow:0 0 0 0 transparent;transition:box-shadow 0.3s}
+.card.active .card-dot{animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--col-pulse,rgba(224,164,59,0.5))}70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.card-name{font-family:"Fraunces",serif;font-size:1.05rem;font-weight:600;margin-bottom:3px}
+.card-role{font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:10px}
+.card-desc{font-size:0.9rem;color:var(--cream2);line-height:1.6}
+.chat-wrap{max-width:1100px;margin:0 auto;padding:0 24px 40px}
+.chat-panel{background:var(--ink2);border:1px solid var(--ink3);border-radius:16px;overflow:hidden;display:none;flex-direction:column}
+.chat-panel.open{display:flex}
+.chat-head{padding:14px 20px;background:rgba(16,14,11,0.55);border-bottom:1px solid var(--ink3);display:flex;align-items:center;justify-content:space-between}
+.ch-l{display:flex;align-items:center;gap:12px}
+.ch-av{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.ch-name{font-family:"Fraunces",serif;font-size:1rem;font-weight:600}
+.ch-role{font-size:0.7rem;letter-spacing:0.1em;text-transform:uppercase;margin-top:2px}
+.ch-close{background:none;border:1px solid var(--ink3);color:var(--cream2);width:30px;height:30px;border-radius:8px;cursor:pointer;font-size:1rem;transition:border-color 0.2s;display:flex;align-items:center;justify-content:center}
+.ch-close:hover{border-color:rgba(248,242,231,0.4)}
+.msgs{height:340px;overflow-y:auto;padding:20px;display:flex;flex-direction:column;gap:14px}
+.empty{text-align:center;padding:44px 20px;color:var(--cream2)}
+.empty-ico{font-size:2.2rem;margin-bottom:10px}
+.empty strong{display:block;font-family:"Fraunces",serif;font-size:1.1rem;color:var(--cream);margin-bottom:6px;font-weight:600}
+.empty p{font-size:0.9rem;line-height:1.65}
+.bubble{padding:12px 16px;border-radius:12px;max-width:86%;font-size:0.95rem;line-height:1.65}
+.bubble.u{background:var(--ink3);align-self:flex-end;color:var(--cream)}
+.bubble.a{background:rgba(16,14,11,0.55);align-self:flex-start;border-left:3px solid;border-radius:0 12px 12px 0;color:var(--cream)}
+.bname{font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.dots{display:flex;gap:5px;align-items:center;padding:4px 0}
+.dots span{width:7px;height:7px;border-radius:50%;animation:blink 1.2s infinite}
+.dots span:nth-child(2){animation-delay:.2s}
+.dots span:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,80%,100%{transform:translateY(0);opacity:.28}40%{transform:translateY(-5px);opacity:1}}
+.foot{padding:14px 20px;border-top:1px solid var(--ink3);display:flex;gap:10px;align-items:flex-end;background:rgba(16,14,11,0.4)}
+.inp{flex:1;background:var(--ink3);border:1px solid rgba(248,242,231,0.1);border-radius:10px;color:var(--cream);padding:10px 14px;font-size:0.95rem;font-family:"Hanken Grotesk",sans-serif;resize:none;outline:none;line-height:1.5;transition:border-color 0.2s}
+.inp:focus{border-color:rgba(248,242,231,0.28)}
+.inp::placeholder{color:rgba(248,242,231,0.28)}
+.sbtn{padding:10px 22px;border-radius:10px;border:none;font-size:0.95rem;font-weight:600;cursor:pointer;font-family:"Hanken Grotesk",sans-serif;transition:opacity 0.15s,transform 0.15s;white-space:nowrap;color:#100E0B}
+.sbtn:hover:not(:disabled){transform:translateY(-1px)}
+.sbtn:disabled{opacity:0.38;cursor:default}
+.starter{max-width:1100px;margin:0 auto;padding:0 24px 56px}
+.starter h2{font-family:"Fraunces",serif;font-size:1.35rem;font-weight:600;margin-bottom:16px}
+.sq{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:10px}
+.stip{background:var(--ink2);border:1px solid var(--ink3);border-radius:12px;padding:14px 16px;font-size:0.9rem;color:var(--cream2);line-height:1.6;cursor:pointer;transition:border-color 0.2s,color 0.2s;text-align:left}
+.stip:hover{color:var(--cream)}
+.stip-who{display:block;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.section-label{max-width:1100px;margin:8px auto 0;padding:0 24px 14px;display:flex;align-items:center;gap:14px}
+.lbl-tag{font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;font-weight:600;background:rgba(224,164,59,0.12);color:#E0A43B;border:1px solid rgba(224,164,59,0.3);padding:5px 12px;border-radius:100px}
+.lbl-desc{font-size:0.85rem;color:rgba(248,242,231,0.5)}
+@media(max-width:580px){.grid{grid-template-columns:1fr 1fr}.msgs{height:280px}.bubble{max-width:95%}.sq{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <div class="logo">3F<b>Digitals</b></div>
+    <div class="nav-badge">Advisory Board &amp; Team · Private</div>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="eyebrow">Your private advisory board &amp; AI team</span>
+  <h1>Ask advisors. Get help from your team.<br>Move your business forward.</h1>
+  <p>Six expert advisors who know your business inside out — plus two AI team members who help you create content and manage your community. Available 24 hours a day. Pick one and start.</p>
+</div>
+
+<div class="section-label">
+  <span class="lbl-tag">Advisors</span>
+  <span class="lbl-desc">Get expert advice on big decisions</span>
+</div>
+<div class="grid" id="grid"></div>
+
+<div class="section-label" style="margin-top:32px">
+  <span class="lbl-tag" style="color:#F6CD84;background:rgba(246,205,132,0.12);border-color:rgba(246,205,132,0.3)">Team</span>
+  <span class="lbl-desc">Your AI helpers who do the heavy lifting (you review &amp; approve)</span>
+</div>
+<div class="grid" id="team"></div>
+
+<div class="chat-wrap">
+  <div class="chat-panel" id="chatPanel"></div>
+</div>
+
+<div class="starter">
+  <h2>Not sure what to ask? Start here</h2>
+  <div class="sq" id="sq"></div>
+</div>
+
+<script>
+const AD=[
+  {id:"strategy",e:"🧠",name:"Dr. Sophia Grant",role:"Business Strategist",col:"#7F77DD",bg:"rgba(127,119,221,0.14)",
+   desc:"Big decisions, pricing, long-term growth, and positioning",
+   tag:"Ask me how to think bigger.",
+   tips:["Should I raise my prices to €2,000?","How do I stand out from other agencies?","Am I ready to hire someone?"],
+   sys:"You are Dr. Sophia Grant, a world-class business strategist. You ALWAYS speak in plain, simple, friendly everyday English. Short sentences. No complicated words. Never more than 3 short paragraphs per answer. You are advising Blessing Fortune Kwomo, founder of 3F Digitals, an AI automation agency in Limerick, Ireland. 3F Digitals installs The Client Flow System — automated lead capture, 60-second auto-replies, follow-up sequences, and calendar booking — for salons, clinics, physios, and service businesses. Price: €1,500 one-time setup plus optional €150/month care plan. Blessing is a solo founder, Certified Backend Software Engineer, Certified RPA Developer, just starting with no clients yet, targeting Irish SMEs. She also runs Nengi Eduhub on Facebook with 19,000 followers. Always end every answer with ONE specific action Blessing can take today."},
+  {id:"sales",e:"💰",name:"Claire Brennan",role:"Sales Coach",col:"#1D9E75",bg:"rgba(29,158,117,0.14)",
+   desc:"Closing clients, handling objections, discovery calls",
+   tag:"Ask me how to close your first client.",
+   tips:["How do I reply when someone says it's too expensive?","What do I say on a discovery call?","How do I follow up without being annoying?"],
+   sys:"You are Claire Brennan, an Irish B2B sales coach with 15 years helping Irish small businesses close deals. You ALWAYS speak in plain, simple, warm, friendly everyday English — like a supportive friend, never a textbook. You know exactly how Irish business owners think. You are advising Blessing Fortune Kwomo of 3F Digitals in Limerick. She sells The Client Flow System at €1,500 to salons, clinics, physios and service businesses in Ireland. Help her close clients with confidence, handle Irish objections like 'that sounds expensive' or 'I need to think about it', price her services without apologising, and follow up without feeling pushy. Never more than 3 short paragraphs. Always end with one specific word, sentence or action she can use right now."},
+  {id:"mktg",e:"📣",name:"Marcus Webb",role:"Marketing Director",col:"#D85A30",bg:"rgba(216,90,48,0.14)",
+   desc:"Content ideas, social media, getting leads online",
+   tag:"Ask me how to get clients from social media.",
+   tips:["How do I use my 19K followers to get clients?","What should I post on LinkedIn this week?","How do I get more enquiries from my website?"],
+   sys:"You are Marcus Webb, a digital marketing expert with 15 years growing service businesses online. You ALWAYS speak in plain, simple, friendly everyday English. You are advising Blessing Fortune Kwomo of 3F Digitals in Limerick. Key facts about her: she has 19,000 followers on Nengi Eduhub Facebook page where she makes tech simple for everyday people. She also has TikTok, Instagram, LinkedIn, and YouTube. Her website is www.3f-digitals.com. She sells The Client Flow System at €1,500 to Irish salons, clinics, and service businesses. Help her turn her existing audience into clients, create content that works, and grow her leads. Never more than 3 short paragraphs. Always give at least one specific content idea she can create this week."},
+  {id:"cfo",e:"📊",name:"James O'Sullivan",role:"Chief Financial Officer",col:"#BA7517",bg:"rgba(186,117,23,0.14)",
+   desc:"Irish tax, cash flow, pricing, and money decisions",
+   tag:"Ask me how to manage your money wisely.",
+   tips:["Do I need to register for VAT yet?","How much should I save from each payment?","When can I start paying myself?"],
+   sys:"You are James O'Sullivan, a chartered accountant who specialises in Irish small businesses. You ALWAYS speak in plain, simple, friendly everyday English — absolutely no jargon. If you must use a financial term, explain it immediately in simple words. You understand Irish tax, VAT (€37,500 threshold for services), Revenue requirements, and the real money challenges of solo founders. You are advising Blessing Fortune Kwomo of 3F Digitals in Limerick. Her pricing: €1,500 setup plus €150/month care plan. She has no clients yet and is just starting. Help her build good financial habits, understand basic Irish tax, manage cash flow, and make smart money decisions. Never more than 3 short paragraphs. Always end with one practical money tip she can act on today."},
+  {id:"success",e:"🤝",name:"Ama Mensah",role:"Client Success Advisor",col:"#378ADD",bg:"rgba(55,138,221,0.14)",
+   desc:"Onboarding clients, case studies, referrals",
+   tag:"Ask me how to turn one client into five.",
+   tips:["How do I onboard my very first client smoothly?","What questions get the best testimonials?","How do I turn one happy client into five referrals?"],
+   sys:"You are Ama Mensah, a client success and retention specialist. You ALWAYS speak in plain, warm, encouraging, friendly everyday English. You help service businesses keep clients happy, collect powerful before-and-after case studies, and generate referrals. You are advising Blessing Fortune Kwomo of 3F Digitals in Limerick. She installs The Client Flow System for salons, clinics and service businesses at €1,500. She is just starting out and needs her first clients to become strong advocates who refer others. Help her onboard clients brilliantly, collect real case studies with numbers, and build a strong Irish reputation. Never more than 3 short paragraphs. Always end with one specific step she can take right now."},
+  {id:"irish",e:"🇮🇪",name:"Fionnuala Murphy",role:"Irish Market Specialist",col:"#639922",bg:"rgba(99,153,34,0.14)",group:"advisor",
+   desc:"Irish business culture, networking, grants",
+   tag:"Ask me how to win Irish clients the right way.",
+   tips:["How do I approach a Limerick salon owner?","What grants can I apply for as a new business?","How does the Local Enterprise Office work?"],
+   sys:"You are Fionnuala Murphy, an expert in Irish small business culture with 20 years experience across Limerick, Cork, and Dublin. You ALWAYS speak in plain, warm, friendly everyday English — like a trusted local friend who knows everyone. You know exactly how Irish business owners think, what they trust, what puts them off, and how real relationships are built in Irish business. You know the Irish business ecosystem: Local Enterprise Office grants, Limerick Chamber of Commerce, Enterprise Ireland, local networking events, and Irish funding for new businesses. You are advising Blessing Fortune Kwomo of 3F Digitals in Limerick on how to win Irish clients the right way. Never more than 3 short paragraphs. Always include one specific local opportunity, grant, or action she can take in Limerick or Munster this week."},
+  {id:"adaeze",e:"📝",name:"Adaeze",role:"Content Creator",col:"#D4537E",bg:"rgba(212,83,126,0.14)",group:"team",
+   desc:"Drafts Facebook posts and content calendars in Mama's voice",
+   tag:"Tell me what you want to post about.",
+   tips:["Give me 5 Facebook post ideas for this week","Write a post about AI for busy parents in Mama's voice","Create a 7-day content calendar for Nengi Eduhub"],
+   sys:"You are Adaeze, a brilliant content creator who works for Blessing Fortune Kwomo. You always speak in plain, simple, warm everyday English. You write Facebook content for Blessing's page called Nengi Eduhub (facebook.com/Nengieduhub/) which has 19,000 followers. The page mission is 'Big ideas made simple' — making STEAM, AI, business, and healthcare accessible to everyday people. Blessing's brand persona is called 'Mama' — warm, nurturing, values-led, grounded in integrity, excellence, purity, gratitude, and discipline. Your job is to draft Facebook posts in Mama's voice — warm, motherly, wise, simple language anyone can understand, often with practical lessons or 'aha moments'. You can write content, captions, calendars, hooks, calls-to-action. You can also help Blessing's other business 3F Digitals (AI automation agency in Limerick). When drafting posts, write them ready to copy and paste — use line breaks, emojis where natural, and a clear call to action. Never write in a corporate or salesy tone. Always sound like a real warm human teacher/mother sharing wisdom. End every draft with a friendly note from you to Blessing suggesting one tweak she might consider."},
+  {id:"tobi",e:"💬",name:"Tobi",role:"Community Manager",col:"#4AA383",bg:"rgba(74,163,131,0.14)",group:"team",
+   desc:"Suggests warm human replies to comments and DMs",
+   tag:"Paste a comment and I'll suggest a reply.",
+   tips:["Someone commented 'thank you so much, I learned a lot' — how do I reply?","Someone asked 'what do you think about AI taking jobs?'","Someone left a rude comment — how should I handle it?"],
+   sys:"You are Tobi, a brilliant community manager who works for Blessing Fortune Kwomo. You always speak in plain, simple, warm everyday English. You help Blessing reply to Facebook comments and direct messages on her Nengi Eduhub page (19,000 followers) — and on her 3F Digitals pages. Blessing's brand persona is 'Mama' — warm, nurturing, values-led, grounded in integrity, excellence, purity, gratitude, and discipline. When Blessing pastes a comment or message into the chat, your job is to suggest a reply she can copy and paste — sounding like a real warm human (Mama), never robotic, never corporate. Replies should be short (1-3 sentences usually), kind, on-brand. If a comment is hostile, suggest a calm, dignified reply that protects Blessing's reputation. If a comment is a question, suggest an answer that adds value. If a comment is praise, suggest a warm thank-you that strengthens the relationship. Always give 2 reply options when possible — a short version and a slightly longer version — and tell Blessing which one you recommend and why."}
+];
+
+let sel=null;
+const msgs={};
+const grid=document.getElementById("grid");
+const sq=document.getElementById("sq");
+
+const team=document.getElementById("team");
+AD.forEach(a=>{
+  if(!a.group)a.group="advisor";
+  const d=document.createElement("div");
+  d.className="card";
+  d.id="card-"+a.id;
+  d.style.setProperty("--c",a.col);
+  d.innerHTML=`<div class="card-ico" style="background:${a.bg}">${a.e}</div>
+<div class="card-dot" style="background:${a.col};--col-pulse:${a.col}44"></div>
+<div class="card-name">${a.name}</div>
+<div class="card-role" style="color:${a.col}">${a.role}</div>
+<div class="card-desc">${a.desc}</div>`;
+  d.onclick=()=>pick(a);
+  if(a.group==="team"){team.appendChild(d)}else{grid.appendChild(d)}
+  a.tips.forEach(tip=>{
+    const t=document.createElement("button");
+    t.className="stip";
+    t.innerHTML=`<span class="stip-who" style="color:${a.col}">${a.name}</span>${tip}`;
+    t.onclick=()=>{pick(a);setTimeout(()=>send(tip),300)};
+    sq.appendChild(t);
+  });
+});
+
+function pick(a){
+  if(sel){document.getElementById("card-"+sel.id).classList.remove("active")}
+  sel=a;
+  document.getElementById("card-"+a.id).classList.add("active");
+  renderPanel();
+  const p=document.getElementById("chatPanel");
+  p.classList.add("open");
+  setTimeout(()=>p.scrollIntoView({behavior:"smooth",block:"nearest"}),100);
+}
+
+function closePanel(){
+  if(sel)document.getElementById("card-"+sel.id).classList.remove("active");
+  sel=null;
+  const p=document.getElementById("chatPanel");
+  p.classList.remove("open");
+  p.innerHTML="";
+}
+
+function renderPanel(){
+  const a=sel;
+  const m=msgs[a.id]||[];
+  const fn=a.name.split(" ")[0];
+  document.getElementById("chatPanel").innerHTML=`
+<div class="chat-head">
+  <div class="ch-l">
+    <div class="ch-av" style="background:${a.bg}">${a.e}</div>
+    <div><div class="ch-name">${a.name}</div><div class="ch-role" style="color:${a.col}">${a.role}</div></div>
+  </div>
+  <button class="ch-close" onclick="closePanel()">✕</button>
+</div>
+<div class="msgs" id="msgs">
+  ${m.length===0?`<div class="empty"><div class="empty-ico">${a.e}</div><strong>${a.tag}</strong><p>I know all about 3F Digitals, your prices, and your situation. Ask me anything — I am here to help.</p></div>`:""}
+  ${m.map(x=>x.role==="user"
+    ?`<div class="bubble u">${esc(x.content)}</div>`
+    :`<div class="bubble a" style="border-color:${a.col}"><div class="bname" style="color:${a.col}">${a.name}</div><div>${x.content.replace(/\n/g,"<br>")}</div></div>`
+  ).join("")}
+</div>
+<div class="foot">
+  <textarea class="inp" id="inp" placeholder="Ask ${fn} anything..." rows="2" onkeydown="kd(event)"></textarea>
+  <button class="sbtn" id="sbtn" onclick="send()" style="background:${a.col}">Send</button>
+</div>`;
+  sc();
+  setTimeout(()=>{const i=document.getElementById("inp");if(i)i.focus()},80);
+}
+
+function esc(t){return t.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function sc(){const m=document.getElementById("msgs");if(m)m.scrollTop=m.scrollHeight}
+function kd(e){if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();send()}}
+
+async function send(pre){
+  const i=document.getElementById("inp");
+  const b=document.getElementById("sbtn");
+  if(!i||!b||!sel)return;
+  const txt=pre||i.value.trim();
+  if(!txt)return;
+  i.value="";b.disabled=true;
+  if(!msgs[sel.id])msgs[sel.id]=[];
+  msgs[sel.id].push({role:"user",content:txt});
+  const a=sel;
+  const ms=document.getElementById("msgs");
+  const em=ms.querySelector(".empty");
+  if(em)em.remove();
+  const ub=document.createElement("div");
+  ub.className="bubble u";ub.textContent=txt;ms.appendChild(ub);
+  const ab=document.createElement("div");
+  ab.className="bubble a";ab.style.borderColor=a.col;
+  ab.innerHTML=`<div class="bname" style="color:${a.col}">${a.name}</div><div class="dots"><span style="background:${a.col}"></span><span style="background:${a.col}"></span><span style="background:${a.col}"></span></div>`;
+  ms.appendChild(ab);sc();
+  try{
+    const r=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({model:"claude-sonnet-4-6",max_tokens:1000,system:a.sys,messages:msgs[a.id]})
+    });
+    const d=await r.json();
+    const rep=d.content?.[0]?.text||"Sorry, something went wrong. Please try again.";
+    msgs[a.id].push({role:"assistant",content:rep});
+    ab.innerHTML=`<div class="bname" style="color:${a.col}">${a.name}</div><div>${rep.replace(/\n/g,"<br>")}</div>`;
+  }catch(err){
+    ab.innerHTML=`<div class="bname" style="color:${a.col}">${a.name}</div><div>Sorry, something went wrong. Please check your connection and try again.</div>`;
+  }
+  sc();
+  const b2=document.getElementById("sbtn");
+  const i2=document.getElementById("inp");
+  if(b2)b2.disabled=false;
+  if(i2)i2.focus();
+}
+</script>
+</body>
+</html>
